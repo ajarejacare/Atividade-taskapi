@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+    <display-name>aula-taskapi</display-name>
+
+    <filter>
+        <filter-name>FiltroTempoDeExecucao</filter-name>
+        <filter-class>br.edu.ifsp.web.filter.FiltroTempoDeExecucao</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FiltroAutenticacao</filter-name>
+        <filter-class>br.edu.ifsp.web.filter.FiltroAutenticacao</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>FiltroTempoDeExecucao</filter-name>
+        <url-pattern>/tarefas/*</url-pattern>
+        <url-pattern>/auth/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FiltroAutenticacao</filter-name>
+        <url-pattern>/tarefas/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>br.edu.ifsp.web.listener.IniciaAplicacaoListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>br.edu.ifsp.web.listener.ContadorSessoesListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>br.edu.ifsp.web.servlet.FrontController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/tarefas/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AutenticacaoServlet</servlet-name>
+        <servlet-class>br.edu.ifsp.web.servlet.AutenticacaoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AutenticacaoServlet</servlet-name>
+        <url-pattern>/auth/*</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
